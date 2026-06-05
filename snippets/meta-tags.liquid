@@ -1,0 +1,51 @@
+{%- comment -%}
+  Meta tags for Open Graph, Twitter cards, and Search Engine Optimization.
+{%- endcomment -%}
+
+<meta name="author" content="{{ shop.name }}">
+
+{%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+{%- endif -%}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:type" content="website">
+
+{%- if page_description -%}
+  <meta property="og:description" content="{{ page_description | escape }}">
+{%- endif -%}
+
+{%- if settings.share_image -%}
+  <meta property="og:image" content="http:{{ settings.share_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ settings.share_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+{%- elsif settings.logo -%}
+  <meta property="og:image" content="http:{{ settings.logo | image_url: width: 600 }}">
+  <meta property="og:image:secure_url" content="https:{{ settings.logo | image_url: width: 600 }}">
+{%- endif -%}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+
+{%- if page_description -%}
+  <meta name="twitter:description" content="{{ page_description | escape }}">
+{%- endif -%}
+
+{%- if settings.share_image -%}
+  <meta name="twitter:image" content="https:{{ settings.share_image | image_url: width: 600 }}">
+{%- endif -%}
+
+<!-- Web App Schema Markup for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ shop.name | escape }}",
+  "url": "{{ shop.secure_url }}"
+}
+</script>

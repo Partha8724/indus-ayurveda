@@ -1,0 +1,200 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags -%} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
+      {%- if current_page != 1 -%} &ndash; Page {{ current_page }}{- endif -%}
+      {%- unless page_title contains shop.name -%} &ndash; {{ shop.name }}{- endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for ultimate theme versatility in direct browser previewing) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'luxury-black': '#0c0c0c',
+              'luxury-charcoal': '#1a1a1a',
+              'luxury-gold': '#d4af37',
+              'brand-emerald': '#1c3d2b',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+              grotesk: ['Space Grotesk', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        --color-accent: {{ settings.color_accent | default: '#d4af37' }};
+        --color-bg: {{ settings.color_bg | default: '#0c0c0c' }};
+        --font-heading: {% if settings.font_heading == 'sans' %}'Space Grotesk'{% elsif settings.font_heading == 'mono' %}'JetBrains Mono'{% else %}'Playfair Display'{% endif %}, serif;
+      }
+
+      body {
+        background-color: var(--color-bg);
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Custom luxury cursor styling for fine pointers */
+      @media (pointer: fine) {
+        body {
+          cursor: none;
+        }
+        #custom-cursor-glow, #custom-cursor-dot {
+          display: block !important;
+        }
+        a, button, [role="button"], select, input, textarea, .interactive-element {
+          cursor: none;
+        }
+      }
+      
+      .cursor-glow-transition {
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s, border-color 0.3s;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen relative">
+    
+    <!-- Custom Luxury Cursor -->
+    <div id="custom-cursor-glow" class="hidden fixed top-0 left-0 w-8 h-8 rounded-full border border-luxury-gold pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference cursor-glow-transition"></div>
+    <div id="custom-cursor-dot" class="hidden fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-luxury-gold pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-transform duration-100"></div>
+
+    <a class="sr-only" href="#MainContent">Skip to content</a>
+
+    {% section 'header' %}
+
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    <script>
+      // 1. Luxury Interactive Custom Cursor Script
+      const glow = document.getElementById('custom-cursor-glow');
+      const dot = document.getElementById('custom-cursor-dot');
+      
+      if (glow && dot) {
+        let mouseX = -100;
+        let mouseY = -100;
+        let glowX = -100;
+        let glowY = -100;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          
+          dot.style.left = mouseX + 'px';
+          dot.style.top = mouseY + 'px';
+        });
+
+        // Soft spring physics trailing transition loop for outer glow ring
+        const render = () => {
+          const dx = mouseX - glowX;
+          const dy = mouseY - glowY;
+          
+          glowX += dx * 0.15;
+          glowY += dy * 0.15;
+          
+          glow.style.left = glowX + 'px';
+          glow.style.top = glowY + 'px';
+          
+          requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        // Hover expand state trigger
+        document.addEventListener('mouseover', (e) => {
+          const target = e.target;
+          if (!target) return;
+          
+          const interactive = target.closest('button, a, [role="button"], select, input, textarea, .group, .interactive-card');
+          if (interactive) {
+            glow.style.transform = 'translate(-50%, -50%) scale(1.8)';
+            glow.style.backgroundColor = 'rgba(212, 175, 55, 0.12)';
+            glow.style.borderColor = '#ffffff';
+            dot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            dot.style.backgroundColor = '#ffffff';
+          } else {
+            glow.style.transform = 'translate(-50%, -50%) scale(1)';
+            glow.style.backgroundColor = 'rgba(212, 175, 55, 0)';
+            glow.style.borderColor = 'var(--color-accent)';
+            dot.style.transform = 'translate(-50%, -50%) scale(1)';
+            dot.style.backgroundColor = 'var(--color-accent)';
+          }
+        });
+
+        // Hide when off screen
+        document.addEventListener('mouseleave', () => {
+          glow.style.opacity = '0';
+          dot.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+          glow.style.opacity = '1';
+          dot.style.opacity = '1';
+        });
+      }
+
+      // 2. Parallax and Entrance animation triggers via IntersectionObserver
+      const animateOnScroll = () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('opacity-0', 'translate-y-10');
+              entry.target.classList.add('opacity-100', 'translate-y-0');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px"
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          observer.observe(el);
+        });
+      };
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        animateOnScroll();
+      });
+    </script>
+  </body>
+</html>

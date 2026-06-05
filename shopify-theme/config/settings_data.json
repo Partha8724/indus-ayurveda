@@ -1,0 +1,14 @@
+{
+  "current": {
+    "color_accent": "#d4af37",
+    "color_bg": "#0c0c0c",
+    "font_heading": "serif"
+  },
+  "presets": {
+    "Default": {
+      "color_accent": "#d4af37",
+      "color_bg": "#0c0c0c",
+      "font_heading": "serif"
+    }
+  }
+}

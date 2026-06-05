@@ -1,0 +1,225 @@
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 {% if section.settings.always_solid %}bg-luxury-black/95 border-b border-white/10{% else %}bg-transparent hover:bg-luxury-black/95{% endif %}" id="shopify-section-header">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
+    
+    <!-- Mobile Hamburger Toggle -->
+    <button class="md:hidden text-white hover:text-luxury-gold transition-colors interactive-element" onclick="toggleMobileMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+    </button>
+
+    <!-- Logo with Indus leaf styling -->
+    <a href="{{ routes.root_url }}" class="flex items-center gap-3 select-none interactive-element">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-luxury-gold"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 2.5 1 8a7 7 0 0 1-9 10Z"></path><path d="M9 22v-3H6"></path></svg>
+      <div class="flex flex-col items-start translate-y-[2px]">
+        <span class="font-serif tracking-[0.15em] uppercase font-bold text-white text-2xl leading-none">Indus</span>
+        <span class="uppercase tracking-[0.4em] text-luxury-gold mt-1 leading-none font-medium text-[10px]">Ayurveda</span>
+      </div>
+    </a>
+
+    <!-- Navigation List Links -->
+    <nav class="hidden md:flex items-center gap-10">
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}" class="text-xs uppercase tracking-[0.2em] font-medium text-gray-300 hover:text-white transition-colors relative group py-2 interactive-element">
+          {{ link.title }}
+          <span class="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+        </a>
+      {% else %}
+        <!-- Default Fallback Navigation -->
+        <a href="#" class="text-xs uppercase tracking-[0.2em] font-medium text-gray-300 hover:text-white transition-all interactive-element">Apothecary</a>
+        <a href="#" class="text-xs uppercase tracking-[0.2em] font-medium text-gray-300 hover:text-white transition-all interactive-element">The Science</a>
+        <a href="#" class="text-xs uppercase tracking-[0.2em] font-medium text-gray-300 hover:text-white transition-all interactive-element">Our Story</a>
+        <a href="#" class="text-xs uppercase tracking-[0.2em] font-medium text-gray-300 hover:text-white transition-all interactive-element">Consultations</a>
+      {% endfor %}
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="flex items-center gap-6 text-white">
+      <button class="hover:text-luxury-gold transition-colors block interactive-element" onclick="toggleSearchOverlay()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      </button>
+      <a href="{{ routes.account_url }}" class="hover:text-luxury-gold transition-colors hidden sm:block interactive-element">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </a>
+      <button class="hover:text-luxury-gold transition-colors relative flex items-center interactive-element" onclick="toggleCartDrawer()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span class="absolute -top-1.5 -right-2 bg-luxury-gold text-black text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center border border-luxury-black">
+          {{ cart.item_count | default: 2 }}
+        </span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Slideout Search Mask -->
+<div id="search-overlay" class="fixed inset-0 bg-luxury-black/95 z-[100] backdrop-blur-xl flex flex-col justify-center items-center px-6 transition-all duration-500 opacity-0 pointer-events-none">
+  <button class="absolute top-8 right-8 text-white hover:text-luxury-gold transition-colors interactive-element" onclick="toggleSearchOverlay()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+  </button>
+  <div class="w-full max-w-2xl text-center">
+    <p class="uppercase tracking-[0.3em] text-xs text-luxury-gold mb-6 font-bold">Search Indus Apothecary</p>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="relative">
+      <input 
+        type="search" 
+        name="q" 
+        placeholder="Type clinical formulation keywords..." 
+        class="w-full bg-transparent border-b border-white/20 pb-5 text-2xl font-serif text-white placeholder-gray-600 focus:outline-none focus:border-luxury-gold text-center"
+      >
+      <input type="hidden" name="type" value="product">
+    </form>
+  </div>
+</div>
+
+<!-- Mobile Drawer Modal Menu -->
+<div id="mobile-navigation" class="fixed inset-0 bg-luxury-black/95 z-[100] backdrop-blur-xl flex flex-col p-6 transition-all duration-500 transform -translate-x-full">
+  <div class="flex justify-between items-center mb-12">
+    <!-- Indus Logo -->
+    <div class="flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-luxury-gold"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 2.5 1 8a7 7 0 0 1-9 10Z"></path><path d="M9 22v-3H6"></path></svg>
+      <div class="flex flex-col items-start translate-y-[2px]">
+        <span class="font-serif tracking-[0.15em] uppercase font-bold text-white text-md leading-none">Indus</span>
+        <span class="uppercase tracking-[0.4em] text-luxury-gold mt-1 leading-none font-medium text-[8px]">Ayurveda</span>
+      </div>
+    </div>
+    <button onclick="toggleMobileMenu()" class="text-white hover:text-luxury-gold transition-colors interactive-element">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+  </div>
+
+  <div class="flex flex-col gap-8 text-xl font-serif text-white pl-4">
+    <a href="#" class="hover:text-luxury-gold transition-colors">Apothecary</a>
+    <a href="#" class="hover:text-luxury-gold transition-colors">The Science</a>
+    <a href="#" class="hover:text-luxury-gold transition-colors">Our Story</a>
+    <a href="#" class="hover:text-luxury-gold transition-colors">Consultations</a>
+  </div>
+</div>
+
+<!-- Shopify Cart Drawer Slider -->
+<div id="cart-drawer-backdrop" class="fixed inset-0 bg-black/50 z-[110] backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" onclick="toggleCartDrawer()"></div>
+<div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-luxury-black text-white shadow-2xl z-[120] border-l border-white/10 flex flex-col transition-transform duration-500 transform translate-x-full">
+  <!-- Drawer Header -->
+  <div class="p-6 border-b border-white/5 flex items-center justify-between">
+    <h3 class="font-serif text-lg tracking-wider uppercase">Shopping Cart (2)</h3>
+    <button onclick="toggleCartDrawer()" class="text-white hover:text-luxury-gold"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+  </div>
+
+  <!-- Free Shipping Indicator -->
+  <div class="bg-luxury-charcoal p-6 border-b border-white/5">
+    <p class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-2">
+      Add ₹15,000.00 more for free express shipping.
+    </p>
+    <div class="w-full bg-white/10 h-1 mt-3 relative overflow-hidden">
+      <div class="absolute left-0 top-0 bg-luxury-gold h-full" style="width: 65%;"></div>
+    </div>
+  </div>
+
+  <!-- Cart Items List (Simulated with premium Indus content) -->
+  <div class="flex-grow overflow-y-auto p-6 space-y-6">
+    <!-- Item 1 -->
+    <div class="flex gap-4 border-b border-white/5 pb-6">
+      <img src="https://images.unsplash.com/photo-1594042898038-04f12f913d8a?auto=format&fit=crop&q=80&w=400" class="w-20 h-20 object-cover" alt="The Vitality Core Caps">
+      <div class="flex-grow">
+        <h4 class="font-serif text-sm">The Vitality Core Caps</h4>
+        <p class="text-gray-400 text-xs mt-1">₹9,999.00</p>
+        <div class="flex items-center gap-3 mt-3">
+          <button class="text-gray-400 hover:text-white text-xs">-</button>
+          <span class="text-xs font-mono">1</span>
+          <button class="text-gray-400 hover:text-white text-xs">+</button>
+        </div>
+      </div>
+    </div>
+    <!-- Item 2 -->
+    <div class="flex gap-4">
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=400" class="w-20 h-20 object-cover" alt="Indus Detox Cleanse">
+      <div class="flex-grow">
+        <h4 class="font-serif text-sm">Indus Detox Cleanse</h4>
+        <p class="text-gray-400 text-xs mt-1">₹12,499.00</p>
+        <div class="flex items-center gap-3 mt-3">
+          <button class="text-gray-400 hover:text-white text-xs">-</button>
+          <span class="text-xs font-mono">2</span>
+          <button class="text-gray-400 hover:text-white text-xs">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Footer details -->
+  <div class="p-6 border-t border-white/5 bg-luxury-charcoal">
+    <div class="flex justify-between items-center mb-6">
+      <span class="uppercase tracking-widest text-sm font-bold">Subtotal</span>
+      <span class="font-serif text-2xl">₹34,997.00</span>
+    </div>
+    <form action="/cart" method="post">
+      <button type="submit" name="checkout" class="w-full bg-white hover:bg-luxury-gold hover:text-black text-black py-4 uppercase tracking-widest text-xs font-bold transition-all">
+        Proceed To Checkout
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Sticky Navbar background color adjustment on scroll down page
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('shopify-section-header');
+    if (window.scrollY > 50) {
+      nav.classList.add('bg-luxury-black/95', 'border-b', 'border-white/10');
+    } else {
+      {% unless section.settings.always_solid %}
+        nav.classList.remove('bg-luxury-black/95', 'border-b', 'border-white/10');
+      {% endunless %}
+    }
+  });
+
+  const toggleSearchOverlay = () => {
+    const overlay = document.getElementById('search-overlay');
+    if (overlay.classList.contains('opacity-0')) {
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+  };
+
+  const toggleMobileMenu = () => {
+    const menu = document.getElementById('mobile-navigation');
+    if (menu.classList.contains('-translate-x-full')) {
+      menu.classList.remove('-translate-x-full');
+    } else {
+      menu.classList.add('-translate-x-full');
+    }
+  };
+
+  const toggleCartDrawer = () => {
+    const backdrop = document.getElementById('cart-drawer-backdrop');
+    const drawer = document.getElementById('cart-drawer');
+    if (drawer.classList.contains('translate-x-full')) {
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      drawer.classList.remove('translate-x-full');
+    } else {
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      drawer.classList.add('translate-x-full');
+    }
+  };
+</script>
+
+{% schema %}
+{
+  "name": "Header Navigation",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Store Main Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "always_solid",
+      "label": "Solid Header Background State",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

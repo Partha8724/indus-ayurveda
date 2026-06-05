@@ -1,0 +1,52 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Indus Ayurveda Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Indus Luxury Developer",
+    "theme_documentation_url": "https://help.shopify.com",
+    "theme_support_url": "https://support.shopify.com"
+  },
+  {
+    "name": "Global Styling & Palette",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Primary Accent (Brand Gold)",
+        "default": "#d4af37"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Store Background Color",
+        "default": "#0c0c0c"
+      },
+      {
+        "type": "select",
+        "id": "font_heading",
+        "label": "Headings Typography Pairing",
+        "options": [
+          {
+            "value": "serif",
+            "label": "Playfair Serif Elegant"
+          },
+          {
+            "value": "sans",
+            "label": "Space Grotesk Technical"
+          },
+          {
+            "value": "mono",
+            "label": "JetBrains Mono Minimalist"
+          }
+        ],
+        "default": "serif"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Theme Favicon"
+      }
+    ]
+  }
+]

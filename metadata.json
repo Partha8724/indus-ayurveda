@@ -1,0 +1,8 @@
+{
+  "name": "Indus Ayurveda",
+  "description": "A high-end luxury eCommerce storefront prototype showcasing premium design, fluid animations, and a sophisticated aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

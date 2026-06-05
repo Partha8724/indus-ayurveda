@@ -1,0 +1,26 @@
+{
+  "general": {
+    "search": {
+      "search": "Search",
+      "submit": "Submit"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "checkout": "Proceed To Checkout",
+      "subtotal": "Subtotal"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "search_placeholder": "Type clinical formulation keywords..."
+    },
+    "hero": {
+      "tagline": "The Protocol 01",
+      "discover": "Discover Protocol"
+    },
+    "featured_collection": {
+      "view_all": "View Protocol"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<section class="py-24 bg-luxury-black text-white min-h-[60vh] flex items-center" id="shopify-section-main-cart" style="background-color: var(--color-bg);">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 w-full animate-on-scroll">
+    <div class="mb-12 border-b border-white/10 pb-8 flex justify-between items-end">
+      <h1 class="text-4xl md:text-5xl font-serif" style="font-family: var(--font-heading);">
+        Your Cart
+      </h1>
+      <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#d4af37] hover:text-white transition-colors font-bold" style="color: var(--color-accent);">Continue Formulation Curating</a>
+    </div>
+
+    {% if cart.item_count > 0 %}
+      <form action="/cart" method="post" novalidate class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Cart Items List (Col span 8) -->
+        <div class="lg:col-span-8 space-y-6">
+          {% for item in cart.items %}
+            <div class="flex gap-6 border-b border-white/10 pb-6 items-center">
+              <div class="w-24 aspect-square overflow-hidden bg-white/5 border border-white/10">
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" class="w-full h-full object-cover">
+              </div>
+
+              <div class="flex-grow">
+                <h3 class="text-lg font-serif mb-1" style="font-family: var(--font-heading);">{{ item.product.title }}</h3>
+                <p class="text-xs text-gray-400 uppercase tracking-wider mb-2">{{ item.vendor }}</p>
+                {% if item.variant.title != 'Default Title' %}
+                  <p class="text-xs text-[#d4af37] tracking-wider mb-2" style="color: var(--color-accent);">{{ item.variant.title }}</p>
+                {% endif %}
+                <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="text-xs text-gray-500 hover:text-white transition-colors underline">Remove</a>
+              </div>
+
+              <!-- Quantity selector -->
+              <div class="flex items-center border border-white/10">
+                <button type="submit" name="update" class="px-3 py-1.5 hover:bg-white/5 transition-colors text-gray-400 interactive-element" onclick="this.form.submit()">-</button>
+                <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" class="w-10 text-center font-mono text-sm border-none bg-transparent focus:ring-0">
+                <button type="submit" name="update" class="px-3 py-1.5 hover:bg-white/5 transition-colors text-gray-400 interactive-element" onclick="this.form.submit()">+</button>
+              </div>
+
+              <!-- Line Price -->
+              <div class="text-right font-mono text-sm leading-none pl-4 min-w-[80px]">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Cart Summary and Checkout Button (Col span 4) -->
+        <div class="lg:col-span-4 bg-white/5 border border-white/10 p-8 space-y-6">
+          <h2 class="text-xl uppercase tracking-widest font-bold text-gray-300">Summary</h2>
+          
+          <div class="flex justify-between border-t border-white/10 pt-6">
+            <span class="text-gray-400">Subtotal</span>
+            <span class="font-mono text-lg">{{ cart.total_price | money }}</span>
+          </div>
+
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Shipping and taxes computed at checkout stage. Exquisite gift wrapping with biological thermal protection included automatically.
+          </p>
+
+          <button 
+            type="submit" 
+            name="checkout" 
+            class="w-full bg-[#d4af37] text-black py-4 uppercase tracking-[0.2em] text-xs font-bold hover:bg-white transition-all flex items-center justify-center gap-2 group interactive-element"
+            style="background-color: var(--color-accent);"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      </form>
+    {% else %}
+      <div class="py-24 text-center">
+        <p class="text-gray-400 font-light mb-6">Your ritual selection cart is currently empty.</p>
+        <a href="/collections/all" class="inline-block border border-white/30 text-white px-8 py-4 uppercase tracking-widest text-sm font-medium hover:bg-white hover:text-black hover:border-white transition-all interactive-element">Begin Curating Formulations</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Shopping Cart",
+  "settings": []
+}
+{% endschema %}

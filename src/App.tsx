@@ -10,7 +10,6 @@ import BrandStory from './components/BrandStory';
 import ProductShowcase from './components/ProductShowcase';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
-import ShopifyCustomizer from './components/ShopifyCustomizer';
 import CheckoutPortal from './components/CheckoutPortal';
 import AccountPortal from './components/AccountPortal';
 import { ThemeProvider, useThemeSettings } from './context/ThemeContext';
@@ -32,7 +31,6 @@ function AppContent() {
       style={{ backgroundColor: settings.bgColor }}
     >
       <CustomCursor />
-      <ShopifyCustomizer />
       <Navbar />
       <CheckoutPortal />
       <AccountPortal />

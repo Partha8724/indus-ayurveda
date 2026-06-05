@@ -1,0 +1,158 @@
+<section class="py-24 bg-white text-black" id="shopify-section-main-product">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      
+      <!-- Product media gallery -->
+      <div class="space-y-4">
+        {%- if product.featured_media != blank -%}
+          <div class="aspect-square bg-gray-100 overflow-hidden animate-on-scroll">
+            <img 
+              src="{{ product.featured_media | image_url: width: 1000 }}" 
+              alt="{{ product.title | escape }}" 
+              class="w-full h-full object-cover"
+            >
+          </div>
+        {%- else -%}
+          <div class="aspect-square bg-gray-100 overflow-hidden animate-on-scroll flex items-center justify-center text-gray-300">
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
+          </div>
+        {%- endif -%}
+
+        {%- if product.media.size > 1 -%}
+          <div class="grid grid-cols-4 gap-4">
+            {%- for media in product.media offset: 1 limit: 4 -%}
+              <div class="aspect-square bg-gray-100 overflow-hidden">
+                <img 
+                  src="{{ media | image_url: width: 400 }}" 
+                  alt="{{ media.alt | escape }}" 
+                  class="w-full h-full object-cover"
+                >
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Product details and purchase form -->
+      <div class="lg:py-12 flex flex-col justify-center animate-on-scroll">
+        <p class="text-luxury-gold uppercase tracking-[0.2em] text-xs font-bold mb-4" style="color: var(--color-accent);">
+          {{ product.vendor }}
+        </p>
+        <h1 class="text-4xl md:text-5xl font-serif mb-4" style="font-family: var(--font-heading);">
+          {{ product.title }}
+        </h1>
+        
+        <div class="flex items-center gap-4 mb-8">
+          <span class="text-xl font-light">{{ product.price | money }}</span>
+          {%- if product.compare_at_price > product.price -%}
+            <span class="text-sm line-through text-gray-400">{{ product.compare_at_price | money }}</span>
+          {%- endif -%}
+        </div>
+        
+        <div class="text-gray-600 mb-8 leading-relaxed font-light">
+          {{ product.description }}
+        </div>
+
+        {%- form 'product', product -%}
+          <!-- Hidden inputs for variant handling -->
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          <!-- Variant selection if multiple variants exist -->
+          {%- unless product.has_only_default_variant -%}
+            <div class="mb-8 select-none">
+              {%- for option in product.options_with_values -%}
+                <p class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-3">{{ option.name }}</p>
+                <div class="flex gap-3 mb-4 flex-wrap">
+                  {%- for value in option.values -%}
+                    {%- assign active = false -%}
+                    {%- if option.selected_value == value -%}{%- assign active = true -%}{%- endif -%}
+                    <button 
+                      type="button" 
+                      class="px-5 py-3 border text-xs uppercase tracking-widest font-bold transition-all interactive-element {% if active %}border-black bg-black text-white{% else %}border-gray-200 text-gray-500 hover:border-black hover:text-black{% endif %}"
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+
+          <!-- Quantity and add-to-cart -->
+          <div class="flex items-center gap-4 mb-12">
+            <div class="flex items-center border border-gray-200">
+              <button type="button" class="px-4 py-3 hover:bg-gray-100 transition-colors text-gray-500 interactive-element" onclick="decrementMainQty()">-</button>
+              <input type="number" id="main-product-qty" name="quantity" value="1" min="1" class="w-12 text-center font-mono text-sm font-medium border-none focus:ring-0 bg-transparent">
+              <button type="button" class="px-4 py-3 hover:bg-gray-100 transition-colors text-gray-500 interactive-element" onclick="incrementMainQty()">+</button>
+            </div>
+            
+            <button 
+              type="submit" 
+              name="add" 
+              class="flex-grow bg-black hover:bg-luxury-gold hover:text-black text-white py-4 uppercase tracking-[0.2em] text-xs font-bold transition-all interactive-element"
+              {% unless product.available %}disabled{% endunless %}
+            >
+              {%- if product.available -%}
+                Add To Cart
+              {%- else -%}
+                Sold Out
+              {%- endif -%}
+            </button>
+          </div>
+        {%- endform -%}
+
+        <!-- Technical Accoridons -->
+        <div class="border-t border-gray-100 pt-6">
+          <div class="border-b border-gray-100 py-4">
+            <button class="w-full flex justify-between items-center text-left py-2 font-medium text-sm text-gray-800 focus:outline-none interactive-element" onclick="toggleMainProductTab('details')">
+              <span class="uppercase tracking-widest text-xs font-bold">Shipping & Returns</span>
+              <span id="details-arrow" class="font-serif text-lg leading-none transition-transform">&#43;</span>
+            </button>
+            <div id="tab-details-body" class="max-h-0 overflow-hidden transition-all duration-300">
+              <p class="py-4 text-sm text-gray-600 leading-relaxed font-light">
+                Express worldwide dispatch within 24-48 hours. Securely packed in fine amber glass jars preserving clinical composition. Returns accepted within 14 days of receipt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function decrementMainQty() {
+    const input = document.getElementById('main-product-qty');
+    let val = parseInt(input.value);
+    if (val > 1) {
+      input.value = val - 1;
+    }
+  }
+
+  function incrementMainQty() {
+    const input = document.getElementById('main-product-qty');
+    let val = parseInt(input.value);
+    input.value = val + 1;
+  }
+
+  function toggleMainProductTab(id) {
+    const body = document.getElementById(`tab-${id}-body`);
+    const arrow = document.getElementById(`${id}-arrow`);
+    if (body.style.maxHeight === '150px') {
+      body.style.maxHeight = '0px';
+      arrow.innerHTML = '&#43;';
+    } else {
+      body.style.maxHeight = '150px';
+      arrow.innerHTML = '&#8722;';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Product Detail",
+  "settings": []
+}
+{% endschema %}

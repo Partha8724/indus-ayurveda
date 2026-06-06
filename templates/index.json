@@ -1,27 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "wrapper": "main",
   "sections": {
+    "17807646130c34896f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2c11672_jwMVeJ": {
+          "type": "ai_gen_block_2c11672",
+          "settings": {
+            "brand_text": "<p>indus ayurveda</p>",
+            "font_family": "serif",
+            "font_size": 48,
+            "line_height": 1.4,
+            "letter_spacing": 2,
+            "text_transform": "uppercase",
+            "text_alignment": "center",
+            "text_color": "#8B4513",
+            "background_color": "#F5E6D3",
+            "border_color": "#8B4513",
+            "text_shadow_x": 2,
+            "text_shadow_y": 2,
+            "text_shadow_blur": 4,
+            "text_shadow_color": "#D2691E",
+            "show_ornaments": true,
+            "ornament_color": "#CD853F",
+            "ornament_height": 2,
+            "ornament_spacing": 15,
+            "ornament_opacity": 0.6,
+            "show_pattern": false,
+            "pattern_color": "#DEB887",
+            "pattern_opacity": 0.1,
+            "desktop_width_percent": 100,
+            "padding": 40,
+            "border_width": 3,
+            "border_radius": 4,
+            "shadow_x": 4,
+            "shadow_y": 4,
+            "shadow_blur": 12,
+            "shadow_color": "#00000033"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2c11672_jwMVeJ"
+      ],
+      "settings": {}
+    },
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "settings": {}
+    },
+    "blocks_CMxidX": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a1650db_Yhjqzh": {
+          "type": "ai_gen_block_a1650db",
+          "name": "Hero video",
+          "settings": {
+            "video_url": "https://gemini.google.com/share/784dc2295461",
+            "image": "shopify://shop_images/Gemini_Generated_Image_xukxapxukxapxukx.png",
+            "height": 100,
+            "mobile_height": 50,
+            "desktop_width_percent": 100,
+            "heading": "Welcome to our store",
+            "subheading": "Discover amazing products",
+            "button_text": "Shop now",
+            "button_link": "",
+            "text_alignment": "center",
+            "vertical_alignment": "center",
+            "heading_color": "#d4af37",
+            "text_color": "#f5e6d3",
+            "overlay_color": "#8b4513",
+            "overlay_opacity": 0.5,
+            "button_color": "#d4af37",
+            "button_hover_color": "#c9a227",
+            "button_text_color": "#2c1810",
+            "button_border_radius": 4,
+            "heading_size": 48,
+            "text_size": 18,
+            "button_text_size": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a1650db_Yhjqzh"
+      ],
+      "name": "Hero video",
+      "settings": {}
     },
     "product_showcase": {
-      "type": "product-showcase"
+      "type": "product-showcase",
+      "settings": {
+        "badge": "Wellness / Immune Support",
+        "title": "The Vitality Core Caps",
+        "price": 9999,
+        "description": "Elevate your daily routine. The Vitality Core Caps transcend traditional supplementation, blending ancient herbal intelligence with cutting-edge bioavailability. Your foundation for everyday resilience."
+      }
     },
     "brand_story": {
-      "type": "brand-story"
+      "type": "brand-story",
+      "settings": {
+        "tag": "Purity & Potency",
+        "heading": "The Science of True Vitality",
+        "paragraph_1": "Founded on the principles of holistic wellness and uncompromising purity, our formulations bridge the gap between ancient natural wisdom and modern medical science.",
+        "paragraph_2": "Every extract, compound, and mineral is obsessively sourced to deliver maximum bioavailability and transformative results. We do not just create supplements; we engineer the foundation of your health.",
+        "button_label": "Discover Our Story",
+        "button_link": ""
+      }
     },
     "clinical_analysis": {
-      "type": "clinical-analysis"
+      "type": "clinical-analysis",
+      "settings": {
+        "tag": "Deep Dive",
+        "heading": "Clinical Analysis",
+        "description": "A comprehensive breakdown of our most advanced formulation. Peer-reviewed ingredients, exponential efficacy."
+      }
     },
     "featured_collection": {
-      "type": "featured-collection"
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Signature Formulations",
+        "subheading": "Explore our clinical-grade botanical engineering, crafted with uncompromising attention to bioavailability.",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "show_badges": true
+      }
+    },
+    "1780763573e9ac0f6b": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a1650db_9zhBm7": {
+          "type": "ai_gen_block_a1650db",
+          "settings": {
+            "video_url": "",
+            "height": 70,
+            "mobile_height": 50,
+            "desktop_width_percent": 100,
+            "heading": "Welcome to our store",
+            "subheading": "Discover amazing products",
+            "button_text": "Shop now",
+            "button_link": "",
+            "text_alignment": "center",
+            "vertical_alignment": "center",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0.3,
+            "button_color": "#ffffff",
+            "button_hover_color": "#f4f4f4",
+            "button_text_color": "#000000",
+            "button_border_radius": 4,
+            "heading_size": 48,
+            "text_size": 18,
+            "button_text_size": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a1650db_9zhBm7"
+      ],
+      "settings": {}
     }
   },
   "order": [
+    "17807646130c34896f",
     "hero",
+    "blocks_CMxidX",
     "product_showcase",
     "brand_story",
     "clinical_analysis",
-    "featured_collection"
+    "featured_collection",
+    "1780763573e9ac0f6b"
   ]
 }

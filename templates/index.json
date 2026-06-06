@@ -1,0 +1,27 @@
+{
+  "wrapper": "main",
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "product_showcase": {
+      "type": "product-showcase"
+    },
+    "brand_story": {
+      "type": "brand-story"
+    },
+    "clinical_analysis": {
+      "type": "clinical-analysis"
+    },
+    "featured_collection": {
+      "type": "featured-collection"
+    }
+  },
+  "order": [
+    "hero",
+    "product_showcase",
+    "brand_story",
+    "clinical_analysis",
+    "featured_collection"
+  ]
+}

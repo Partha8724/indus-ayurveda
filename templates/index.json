@@ -23,20 +23,20 @@
             "letter_spacing": 0,
             "text_transform": "capitalize",
             "text_alignment": "center",
-            "text_color": "#CD853F",
+            "text_color": "#cd853f",
             "background_color": "#000000",
-            "border_color": "#8B4513",
+            "border_color": "#8b4513",
             "text_shadow_x": 2,
             "text_shadow_y": 2,
             "text_shadow_blur": 4,
-            "text_shadow_color": "#D2691E",
+            "text_shadow_color": "#d2691e",
             "show_ornaments": true,
-            "ornament_color": "#CD853F",
+            "ornament_color": "#cd853f",
             "ornament_height": 2,
             "ornament_spacing": 15,
             "ornament_opacity": 0.6,
             "show_pattern": false,
-            "pattern_color": "#DEB887",
+            "pattern_color": "#deb887",
             "pattern_opacity": 0.1,
             "desktop_width_percent": 100,
             "padding": 40,
@@ -79,7 +79,7 @@
             "vertical_alignment": "center",
             "heading_color": "#000000",
             "text_color": "#000000",
-            "overlay_color": "#CD853F",
+            "overlay_color": "#cd853f",
             "overlay_opacity": 0,
             "button_color": "#000000",
             "button_hover_color": "#333333",
@@ -113,6 +113,8 @@
     "brand_story": {
       "type": "brand-story",
       "settings": {
+        "image_1": "shopify://shop_images/fbc3a105-a4b7-44aa-92a9-064196a71706.jpg",
+        "image_2": "shopify://shop_images/fbc3a105-a4b7-44aa-92a9-064196a71706.jpg",
         "tag": "Purity & Potency",
         "heading": "The Science of True Vitality",
         "paragraph_1": "Founded on the principles of holistic wellness and uncompromising purity, our formulations bridge the gap between ancient natural wisdom and modern medical science.",
@@ -143,6 +145,23 @@
     "1780763573e9ac0f6b": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_746a566_zQq6Pq": {
+          "type": "ai_gen_block_746a566",
+          "settings": {
+            "heading_text": "Welcome to our store",
+            "heading_tag": "h2",
+            "font_size": 48,
+            "font_weight": "700",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "padding": 20,
+            "desktop_width_percent": 100,
+            "glow_color": "#00d4ff",
+            "glow_intensity": 20,
+            "animation_speed": 2
+          },
+          "blocks": {}
+        },
         "ai_gen_block_a1650db_9zhBm7": {
           "type": "ai_gen_block_a1650db",
           "settings": {
@@ -173,6 +192,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_746a566_zQq6Pq",
         "ai_gen_block_a1650db_9zhBm7"
       ],
       "settings": {}

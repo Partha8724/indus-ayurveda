@@ -1,6 +1,429 @@
+{% doc %}
+  @prompt
+    wrote indus ayurveda, wrote in indian anceint syle use ancaint font or color evry thing make anceint look organic athantic
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-ancient-brand-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding }}px;
+    background: {{ block.settings.background_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    text-align: {{ block.settings.text_alignment }};
+    position: relative;
+    box-shadow: {{ block.settings.shadow_x }}px {{ block.settings.shadow_y }}px {{ block.settings.shadow_blur }}px {{ block.settings.shadow_color }};
+  }
+
+  .ai-ancient-brand__ornament-top-{{ ai_gen_id }},
+  .ai-ancient-brand__ornament-bottom-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.ornament_height }}px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      {{ block.settings.ornament_color }} 20%, 
+      {{ block.settings.ornament_color }} 50%, 
+      {{ block.settings.ornament_color }} 80%, 
+      transparent 100%
+    );
+    opacity: {{ block.settings.ornament_opacity }};
+  }
+
+  .ai-ancient-brand__ornament-top-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.ornament_spacing }}px;
+  }
+
+  .ai-ancient-brand__ornament-bottom-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.ornament_spacing }}px;
+  }
+
+  .ai-ancient-brand__content-{{ ai_gen_id }} {
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: {{ block.settings.line_height }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    margin: 0;
+    text-transform: {{ block.settings.text_transform }};
+    text-shadow: {{ block.settings.text_shadow_x }}px {{ block.settings.text_shadow_y }}px {{ block.settings.text_shadow_blur }}px {{ block.settings.text_shadow_color }};
+  }
+
+  .ai-ancient-brand__pattern-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: {{ block.settings.pattern_opacity }};
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      {{ block.settings.pattern_color }} 10px,
+      {{ block.settings.pattern_color }} 11px
+    );
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-ancient-brand-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-ancient-brand__content-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.font_size }}px * 0.8);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-ancient-brand-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_pattern %}
+    <div class="ai-ancient-brand__pattern-{{ ai_gen_id }}"></div>
+  {% endif %}
+  
+  {% if block.settings.show_ornaments %}
+    <div class="ai-ancient-brand__ornament-top-{{ ai_gen_id }}"></div>
+  {% endif %}
+  
+  {% if block.settings.brand_text != blank %}
+    <div class="ai-ancient-brand__content-{{ ai_gen_id }}">
+      {{ block.settings.brand_text }}
+    </div>
+  {% else %}
+    <div class="ai-ancient-brand__content-{{ ai_gen_id }}" style="color: #999; font-style: italic;">
+      Add your ancient brand text
+    </div>
+  {% endif %}
+  
+  {% if block.settings.show_ornaments %}
+    <div class="ai-ancient-brand__ornament-bottom-{{ ai_gen_id }}"></div>
+  {% endif %}
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Ancient brand text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "brand_text",
+      "label": "Brand text",
+      "default": "<p>indus ayurveda</p>"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#8B4513"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F5E6D3"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#8B4513"
+    },
+    {
+      "type": "header",
+      "content": "Text shadow"
+    },
+    {
+      "type": "range",
+      "id": "text_shadow_x",
+      "label": "Horizontal offset",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "text_shadow_y",
+      "label": "Vertical offset",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "text_shadow_blur",
+      "label": "Blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "text_shadow_color",
+      "label": "Shadow color",
+      "default": "#D2691E"
+    },
+    {
+      "type": "header",
+      "content": "Ornaments"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ornaments",
+      "label": "Show ornaments",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "ornament_color",
+      "label": "Ornament color",
+      "default": "#CD853F"
+    },
+    {
+      "type": "range",
+      "id": "ornament_height",
+      "label": "Ornament height",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "ornament_spacing",
+      "label": "Ornament spacing",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "ornament_opacity",
+      "label": "Ornament opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.6
+    },
+    {
+      "type": "header",
+      "content": "Pattern"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pattern",
+      "label": "Show pattern",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "pattern_color",
+      "label": "Pattern color",
+      "default": "#DEB887"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "label": "Pattern opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Box shadow"
+    },
+    {
+      "type": "range",
+      "id": "shadow_x",
+      "label": "Horizontal offset",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "shadow_y",
+      "label": "Vertical offset",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "label": "Blur",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow color",
+      "default": "#00000033"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ancient brand text"
+    }
+  ]
+}
 {% endschema %}
